@@ -12,7 +12,11 @@ function getSlackName(playerId) {
   return '@'+Config.PLAYERS_TO_SLACK[playerId];
 }
 function getNextPlayer(game) {
-  return _.find(game.Players, { TurnOrder: game.CurrentTurn.PlayerNumber+1});
+  var player = _.find(game.Players, { TurnOrder: game.CurrentTurn.PlayerNumber+1});
+  if(typeof player === 'undefined') {
+    player = _.find(game.Players, { TurnOrder: 0 });
+  }
+  return player;
 }
 
 var runner = (function() {
